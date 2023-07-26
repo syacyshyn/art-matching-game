@@ -16,7 +16,6 @@ body {
     display: flex;
     width: 32rem;
     height: 26rem;
-    /*border: solid aquamarine;*/
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
@@ -43,4 +42,9 @@ h2 {
     width: 6rem;
     height: 6rem;
     cursor: pointer;
+    transition: transform 0.4s;
+}
+
+.flipTile180Deg {
+    transform: rotateY(180deg);
 }

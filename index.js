@@ -25,16 +25,19 @@ function getRandomItem(listOfElements) {
 
 
 let collectionOfTiles = document.getElementsByClassName("tiles");
-// put collection of tiles elements into a list because collection of tiles is not an array, which we need in order to use .pop() method.
+// put collection of tiles elements into a list because collection of tiles is not an array, which we need in order to 
+// use .pop() method.
 let arrayOfTiles = [];
 for (let tile of collectionOfTiles) {
+    // Flip all the tiles so the gradient image is actually backwards. We want this so that when a user clicks on the 
+    // tile we can flip it another 180 degrees and get the right orientation when an image shows.
+    tile.classList.toggle("flipTile180Deg");
     arrayOfTiles.push(tile);
 }
 
 /*
 This function loops through our "paintings and artists hashmap" and assigns each key and value as a new id for the randomly generated tiles.
  */
-
 function assignIDs(map) {
     for (let keyAndValuePair of map) {
         getRandomItem(arrayOfTiles).id = keyAndValuePair[0];
@@ -52,6 +55,8 @@ for (let individualTile of arrayOfTiles) {
             clickTracker++;
         }
         if (clickTracker <= 2) {
+            // Flip the user is not clicking on the same tile over and over
+            individualTile !== previousTileClicked ? individualTile.classList.toggle("flipTile180Deg") : false;
             individualTile.src = `images/${individualTile.id}.jpg`;
         }
         if (clickTracker === 2) {
@@ -97,6 +102,9 @@ function oneRound(firstTileClicked, secondTileClicked) {
     previousTileClicked = undefined;
     setTimeout(function () {
         setPointerEventOfElements(collectionOfTiles, "auto");
+        // Flip the tiles to the original orientation
+        firstTileClicked.classList.toggle("flipTile180Deg");
+        secondTileClicked.classList.toggle("flipTile180Deg");
     }, 1500);
 }
 
