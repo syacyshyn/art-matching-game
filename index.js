@@ -1,3 +1,5 @@
+// TODO: change function comments to js doc comments
+
 let paintingsAndArtistsHashmap = new Map();
 paintingsAndArtistsHashmap.set("starry-night", "van-gogh");
 paintingsAndArtistsHashmap.set("mona-lisa", "leonardo-da-vinci");
@@ -42,10 +44,6 @@ function assignIDs(map) {
     }
 }
 
-
-/*
-This function changes the tile image to it's assigned ID image on click if there have been less than two clicks.
- */
 let clickTracker = 0;
 let previousTileClicked;
 for (let individualTile of arrayOfTiles) {
@@ -57,7 +55,6 @@ for (let individualTile of arrayOfTiles) {
             individualTile.src = `images/${individualTile.id}.jpg`;
         }
         if (clickTracker === 2) {
-            // TODO: pass in arguments once created
             oneRound(previousTileClicked, individualTile);
             clickTracker = 0;
         } else {
@@ -66,35 +63,41 @@ for (let individualTile of arrayOfTiles) {
     }
 }
 
-
-/*
-This function starts one round of game play
+/**
+ * A pointer event controls the behavior of HTML elements in response to mouse or touch events.
+ * This function will be used to prevent users from clicking tiles and causing them to flip when we don't want that to happen.
+ * @param collectionOfElements list of elements we want to apply pointer event to.
+ * @param {string} pointerEvent "none" turns off pointer event and "auto" turns on pointer event.
  */
+function setPointerEventOfElements(collectionOfElements, pointerEvent) {
+    for (let individualElement of collectionOfElements) {
+        individualElement.style.pointerEvents = pointerEvent;
+    }
+}
+
+
 // TODO: implement this
 let currentRound = 0;
 
+
 function oneRound(firstTileClicked, secondTileClicked) {
+    setPointerEventOfElements(collectionOfTiles, "none");
     currentRound++;
     if (paintingsAndArtistsHashmap.get(firstTileClicked.id) === secondTileClicked.id || paintingsAndArtistsHashmap.get(secondTileClicked.id) === firstTileClicked.id) {
-        setInterval(function () {
+        setTimeout(function () {
             firstTileClicked.style.filter = "blur(1rem)";
             secondTileClicked.style.filter = "blur(1rem)";
         }, 1500);
-
     } else {
-        setInterval(function () {
+        setTimeout(function () {
             firstTileClicked.src = "images/gradient-square.jpg";
             secondTileClicked.src = "images/gradient-square.jpg";
         }, 1500);
-
-        previousTileClicked = undefined;
     }
-    /*
-    start when clicked tracker = 2
-    check if key and value match
-    if it's a match, tell user and keep images the same (flipped)
-    if it's not a match flip the images back after a few seconds
-     */
+    previousTileClicked = undefined;
+    setTimeout(function () {
+        setPointerEventOfElements(collectionOfTiles, "auto");
+    }, 1500);
 }
 
 assignIDs(paintingsAndArtistsHashmap);

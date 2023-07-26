@@ -1,6 +1,15 @@
 
 .full-page {
     height: 100vh;
+    width: 100vw;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
 }
 
 .memory-board {
@@ -10,8 +19,19 @@
     /*border: solid aquamarine;*/
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: .7rem .5rem .5rem;
-    background-color: #f5d6da;
+    align-items: center;
+    padding: .5rem;
+    background-color: #100506;
+}
+
+#memory-board-and-column {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+h2 {
+    margin: 0;
 }
 
 .backside {
@@ -22,4 +42,5 @@
 .tiles {
     width: 6rem;
     height: 6rem;
+    cursor: pointer;
 }
